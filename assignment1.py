@@ -47,6 +47,11 @@ def errorHandler(error, current_error, x ,y ,z ,n, sum_xy):
     # If not, it simply returns the smallest error so far
     if current_error < error:
         print(f"{x}^{n:<8} + {y}^{n:<8} = {z}^{n:<8}  {current_error:<15}  {(current_error/sum_xy) * 100}%")
+        try:
+            if best_results[trial][0] > current_error:
+                best_results[trial] = [current_error, [x,y,z,n,(current_error/sum_xy) * 100]]
+        except Exception as error:
+            best_results.insert(trial,[current_error, [x,y,z,n,(current_error/sum_xy) * 100]])
         return current_error
     return error
 
@@ -108,9 +113,20 @@ def main():
         
 again = True
 
+best_results = []
+trial = 0
+
 while again:
 
     main()
+
+    print("\n-Best Results-")
+    print(f"\n{'X':<15}{'Y':<15}{'Z':<15}{'Actual Miss':<15}{'Relative Miss':<15}",end="\n\n")
+    for i in best_results:
+        print(f"{i[1][0]}^{i[1][3]:<8} + {i[1][1]}^{i[1][3]:<8} = {i[1][2]}^{i[1][3]:<8}  {i[0]:<15} {i[1][4]}%")
+    print("")
+    
+    trial+= 1
 
     # Allowing the user to quit or try another
     while True:
