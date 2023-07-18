@@ -121,9 +121,9 @@ while again:
     main()
 
     print("\n-Best Results-")
-    print(f"\n{'X':<15}{'Y':<15}{'Z':<15}{'Actual Miss':<15}{'Relative Miss':<15}",end="\n\n")
-    for i in best_results:
-        print(f"{i[1][0]}^{i[1][3]:<8} + {i[1][1]}^{i[1][3]:<8} = {i[1][2]}^{i[1][3]:<8}  {i[0]:<15} {i[1][4]}%")
+    print(f"\n{'':<12}{'X':<15}{'Y':<15}{'Z':<8}{'Actual Miss':<18}{'Relative Miss':<15}",end="\n\n")
+    for count,i in enumerate(best_results):
+        print(f"Trail: {count} | {i[1][0]}^{i[1][3]:<8} + {i[1][1]}^{i[1][3]:<8} = {i[1][2]}^{i[1][3]:<8}  {i[0]:<15} {i[1][4]}%")
     print("")
     
     trial+= 1
