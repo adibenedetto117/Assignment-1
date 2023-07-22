@@ -46,7 +46,7 @@ def errorHandler(error, current_error, x ,y ,z ,n, sum_xy):
     # If yes, then it prints the equation and the relative miss and returns the current error
     # If not, it simply returns the smallest error so far
     if current_error < error:
-        print(f"{x}^{n:<8} + {y}^{n:<8} = {z}^{n:<8}  {current_error:<15}  {(current_error/sum_xy) * 100}%")
+        print(f"{str(x)+'^'+str(n)+' +':<10}{str(y)+'^'+str(n)+' =':<10}{str(z)+'^'+str(n):<13}{current_error:<14}{(current_error/sum_xy)* 100:<13}%")
         try:
             if best_results[trial][0] > current_error:
                 best_results[trial] = [current_error, [x,y,z,n,(current_error/sum_xy) * 100]]
@@ -54,6 +54,14 @@ def errorHandler(error, current_error, x ,y ,z ,n, sum_xy):
             best_results.insert(trial,[current_error, [x,y,z,n,(current_error/sum_xy) * 100]])
         return current_error
     return error
+
+def print_results():
+    print("\n-Best Results-")
+    print(f"\n{'':<11}{'X':<10}{'Y':<10}{'Z':<13}{'N':<8}{'Actual Miss':<14} {'Relative Miss':<13}",end="\n\n")
+    for count,i in enumerate(best_results):
+        print(f"Trial: {count} | {str(i[1][0])+'^'+str(i[1][3])+' +':<10}{str(i[1][1])+'^'+str(i[1][3])+' =':<10}{str(i[1][2])+'^'+str(i[1][3]):<10}{' | '+str(i[1][3]):<11}",end="")
+        print(f"{i[0]:<14} {i[1][4]:<13}%")
+    print("")
 
 head()
 
@@ -68,26 +76,34 @@ def main():
     while step < 2:
         if step == 0:
             try:
-                n = int(input("Enter your value for n ( 2 < n < 12 ): "))
+                n = input("Enter your value for n ( 2 < n < 12 ): ")
+                n = int(n)
                 if 2 < n and n < 12:
                     step+=1
                 else :
                     print("Value must be ( 2 < n < 12 )")
             except:
+                if n == 'q' or n == 'Q':
+                    return False 
                 print("Value for n must be an integer. ")
         elif step  == 1: 
             try:
-                k = int(input("Enter your value for k (10 < k): "))
-                if 10 < k:
+                k = input("Enter your value for k (10 < k < 2000): ")
+                k = int(k)
+                if 10 < k and k < 2000:
                     step+=1
                 else:
-                    print("Value for k must be (10 < k)")
+                    print("Value for k must be (10 < k < 2000)")
             except:
+                if k == 'q' or k == 'Q':
+                    return False
                 print("Value must be an integer. ")
 
     error = math.inf
 
-    print(f"\n{'X':<15}{'Y':<15}{'Z':<15}{'Actual Miss':<15}{'Relative Miss':<15}",end="\n\n")
+    print(f"\nTrial - {trial}\n\n***  Start of Testing Loop ***")
+
+    print(f"\n{'X':<10}{'Y':<10}{'Z':<13}{'Actual Miss':<14}{'Relative Miss':<13}",end="\n\n")
 
     # Iterate through x and y and check for near misses
     for x in range(11,k+1):
@@ -109,6 +125,9 @@ def main():
 
             current_error = abs(sum_xy - (z_plusOne**n))
             error = errorHandler(error,current_error, x, y, z_plusOne, n, sum_xy)
+    
+    print("\n*** End of testing loop ***")
+    return True
         
         
 again = True
@@ -118,13 +137,17 @@ trial = 0
 
 while again:
 
-    main()
+    main_bool = main()
 
-    print("\n-Best Results-")
-    print(f"\n{'':<12}{'X':<15}{'Y':<15}{'Z':<8}{'Actual Miss':<18}{'Relative Miss':<15}",end="\n\n")
-    for count,i in enumerate(best_results):
-        print(f"Trail: {count} | {i[1][0]}^{i[1][3]:<8} + {i[1][1]}^{i[1][3]:<8} = {i[1][2]}^{i[1][3]:<8}  {i[0]:<15} {i[1][4]}%")
-    print("")
+    if main_bool == False and best_results == []:
+        print("\nNo results found! Thanks for trying the program!")
+        break
+    elif main_bool == False:
+        print("\nHere are your results! Thanks for trying the program!")
+        print_results()
+        break
+    else:
+        print_results()
     
     trial+= 1
 
