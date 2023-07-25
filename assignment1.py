@@ -5,7 +5,7 @@
 # Programmers: Anthony DiBenedetto
 # Email: anthonypdibenedett@lewisu.edu
 # Course Number: CPSC 60500
-# Date Finished: <Fill this> | Date Submitted: <Fill this>
+# Date Finished: <7/24/2023> | Date Submitted: <7/25/2023>
 # Program Description: This program helps an interactive user search for “near misses" of Fermat's Last Theorem 
 #                      by allowing the user to specify n and k.
 
