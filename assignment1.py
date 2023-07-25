@@ -56,6 +56,8 @@ def errorHandler(error, current_error, x ,y ,z ,n, sum_xy):
     return error
 
 def print_results():
+    # This function is used to print the best results to the user
+    # It prints the equation, the relative miss, and the actual miss
     print("\n-Best Results-")
     print(f"\n{'':<11}{'X':<10}{'Y':<10}{'Z':<13}{'N':<8}{'Actual Miss':<14} {'Relative Miss':<13}",end="\n\n")
     for count,i in enumerate(best_results):
@@ -139,6 +141,7 @@ while again:
 
     main_bool = main()
 
+    # These if statements are used to check if the user wants to quit the program during the input phase
     if main_bool == False and best_results == []:
         print("\nNo results found! Thanks for trying the program!")
         break
